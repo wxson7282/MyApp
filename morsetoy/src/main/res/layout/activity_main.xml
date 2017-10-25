@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="@string/input_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -54,12 +54,11 @@
         android:id="@+id/toggleBtnFormat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="@string/toggleBtnFormat_name"
         android:textOff="@string/toggleBtnFormat_textOff"
         android:textOn="@string/toggleBtnFormat_textOn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ToggleButton
         android:id="@+id/toggleBtnSpeed"
