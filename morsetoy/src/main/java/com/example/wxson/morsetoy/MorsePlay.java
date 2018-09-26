@@ -47,22 +47,22 @@ class MorsePlay implements IMorsePlay<Boolean> {
 
     public void playDa(){
         if (speedFlag){
-            soundPool.play(streamIdFastDa,1, 1, 0, 0, 1);
+            soundPool.play(streamIdFastDa,1.0f, 1.0f, 0, 0, 1.0f);
             delay(delayFastDa + delayFastDi);
         }
         else{
-            soundPool.play(streamIdSlowDa,1, 1, 0, 0, 1);
+            soundPool.play(streamIdSlowDa,1.0f, 1.0f, 0, 0, 1.0f);
             delay(delaySlowDa + delaySlowDi);
         }
     }
 
     public void playDi(){
         if (speedFlag){
-            soundPool.play(streamIdFastDi,1, 1, 0, 0, 1);
+            soundPool.play(streamIdFastDi,1.0f, 1.0f, 0, 0, 1.0f);
             delay(delayFastDi + delayFastDi);
         }
         else{
-            soundPool.play(streamIdSlowDi,1, 1, 0, 0, 1);
+            soundPool.play(streamIdSlowDi,1.0f, 1.0f, 0, 0, 1.0f);
             delay(delaySlowDi + delaySlowDi);
         }
     }

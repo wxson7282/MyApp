@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,15 +23,20 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.File;
-
+import java.util.List;
 import java.util.regex.*;
 
-public class MainActivity extends AppCompatActivity {
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+
+    protected static final String TAG = "MainActivity";
     static IArrayMapForCoding arrayMapForCodingNormal;  //标准编码类
     static IArrayMapForCoding arrayMapForCodingLong;  //长码电报编码类
     static IArrayMapForCoding arrayMapForCodingShort;  //短码电报编码类
     private IMorsePlay<Boolean> morsePlay;                            //播放类
     private IMakeMorseAudioFile<Boolean> makeMorseAudioFile;        //制作音频文件类
+    private Button btnMakeFile;                          //制成音频文件按钮
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +64,18 @@ public class MainActivity extends AppCompatActivity {
         //实例化各控件
         final Button btnCode = (Button)findViewById(R.id.btnCode);                                  //编码按钮
         final Button btnPlay = (Button)findViewById(R.id.btnPlay);                                  //播放按钮
-        final Button btnMakeFile = (Button)findViewById(R.id.btnMakeFile);                          //制成音频文件按钮
         final EditText editText = (EditText)findViewById(R.id.editText);                            //电文文本
         final TextView textViewMorse = (TextView)findViewById(R.id.textViewMorse);                  //莫尔斯码文本
         final ToggleButton toggleBtnFormat = (ToggleButton)findViewById(R.id.toggleBtnFormat);      //格式按钮
         final ToggleButton toggleBtnLong = (ToggleButton)findViewById(R.id.toggleBtnLong);          //长短码按钮
         final ToggleButton toggleBtnSpeed = (ToggleButton)findViewById(R.id.toggleBtnSpeed);        //播放速度按钮
+        btnMakeFile = (Button)findViewById(R.id.btnMakeFile);
 
         //把小写字母转换为大写字母
         editText.setTransformationMethod(new AllCapTransformationMethod());
+
+        //申请权限
+        requestStoragePermission();
 
         //莫尔斯码生成按钮的监听器
         btnCode.setOnClickListener(new View.OnClickListener(){
@@ -196,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     //指定播放速度
                     makeMorseAudioFile.setSpeed(toggleBtnSpeed.isChecked());
                     //获得运行时文件读写权限
-                    verifyStoragePermissions(MainActivity.this);
+//                    verifyStoragePermissions(MainActivity.this);
 
                     //制成音频文件
                     if (makeMorseAudioFile.makeMorseAudioFile(fileName, textViewMorse.getText().toString())){
@@ -211,56 +220,48 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void verifyStoragePermissions(Activity activity) {
-        final int REQUEST_EXTERNAL_STORAGE = 1;
-        final String[] PERMISSIONS_STORAGE = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        Log.i(TAG, "onRequestPermissionsResult");
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 
+    public void requestStoragePermission(){
+        Log.i(TAG, "requestStoragePermission");
+        String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, permission)) {
+            // Already have permission, do the thing
+            Log.i(TAG, "已获取写权限");
+            btnMakeFile.setEnabled(true);
+        } else {
+            // Do not have permissions, request them now
+            Log.i(TAG, "申请写权限");
+            //requestCode
+            int REQUEST_STORAGE_PERMISSION = 1;
+            EasyPermissions.requestPermissions(this, getString(R.string.storage_rationale),
+                    REQUEST_STORAGE_PERMISSION, permission);
+        }
+    }
 
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // 第一次请求权限时，用户如果拒绝，下一次请求shouldShowRequestPermissionRationale()返回true
-            // 向用户解释为什么需要这个权限
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                new AlertDialog.Builder(this)
-                        .setMessage("申请WRITE_EXTERNAL_STORAGE权限")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //申请WRITE_EXTERNAL_STORAGE权限
-                                ActivityCompat.requestPermissions(MainActivity.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
-                            }
-                        })
-                        .show();
-            }
-            else {
-                //申请WRITE_EXTERNAL_STORAGE权限
-                ActivityCompat.requestPermissions(MainActivity.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
-                Toast toast = Toast.makeText(MainActivity.this, "已经申请WRITE_EXTERNAL_STORAGE权限", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        }
-        else {
-            Toast toast = Toast.makeText(MainActivity.this, "已经获得WRITE_EXTERNAL_STORAGE权限", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+    //下面两个方法是实现EasyPermissions的EasyPermissions.PermissionCallbacks接口
+    //分别返回授权成功和失败的权限
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        Log.i(TAG, "onPermissionsGranted");
+        Log.i(TAG, "获取权限成功" + perms);
+        Toast toast = Toast.makeText(MainActivity.this, "获取权限成功", Toast.LENGTH_SHORT);
+        toast.show();
+        btnMakeFile.setEnabled(true);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                Toast toast;
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // 权限被用户同意，可以去放肆了。
-                    toast = Toast.makeText(MainActivity.this, "权限被用户同意，可以去放肆了。", Toast.LENGTH_SHORT);
-                } else {
-                    // 权限被用户拒绝了，洗洗睡吧。
-                    toast = Toast.makeText(MainActivity.this, "权限被用户拒绝了，洗洗睡吧。", Toast.LENGTH_SHORT);
-                }
-                toast.show();
-            }
-        }
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.i(TAG, "onPermissionsDenied");
+        Log.i(TAG, "获取权限失败，保存按钮不可用" + perms);
+        Toast toast = Toast.makeText(MainActivity.this, "获取权限失败，保存按钮不可用", Toast.LENGTH_SHORT);
+        toast.show();
+        btnMakeFile.setEnabled(false);
     }
-
 }

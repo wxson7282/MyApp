@@ -5,7 +5,7 @@ package com.example.wxson.morsetoy;
  *
  */
 
-interface IMakeMorseAudioFile<T> {
+interface  IMakeMorseAudioFile<T> {
     /**
      *  设定播放速度
      * @param _speedFlag 速度标志

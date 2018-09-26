@@ -15,4 +15,5 @@
     <string name="toggleBtnLong_textOn">长码</string>
     <string name="toggleBtnLong_name">toggleBtnLong</string>
     <string name="regExpPattern">[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ]</string>
+    <string name="storage_rationale">本APP运行必须取得写权限</string>
 </resources>
