@@ -1,5 +1,6 @@
 package com.example.ringtimer;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+//import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void addRow()
     {
         TableRow Row = new TableRow(this);
@@ -102,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         Row.addView(btn);
         //add row
         Row.setBackgroundResource(R.color.c2);
+        //Row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
         tblDetail.addView(Row);
         itemCount++;
         itemNum.setText(String.valueOf(itemCount).concat(this.getString(R.string.Items)));

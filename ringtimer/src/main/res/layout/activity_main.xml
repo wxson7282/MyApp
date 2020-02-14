@@ -1,47 +1,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id='@+id/root'
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#fff"
-    >
+    style="@style/Root">
     <TableLayout
         android:id='@+id/table1'
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stretchColumns="0">
+        style="@style/Table1">
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="1dip"
             android:layout_height="wrap_content">
             <TextView android:text="@string/add_timer"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:layout_marginStart='10sp'
                 android:layout_gravity="center"
-                />
+                android:layout_width="1dip"
+                android:layout_span="2" />
             <TextView  android:id='@+id/count'
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:layout_gravity="center"
                 android:text="@string/ZeroItems"
-                />
-            <Space  android:layout_width="20sp"/>
+                android:layout_width="1dip" />
             <Button
                 style="@style/FormButton"
                 android:id="@+id/btnAdd"
                 android:text="@string/add_code"
-                android:layout_marginEnd="5sp"
-                android:layout_gravity="end"
-                />
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent" />
             </TableRow>
     </TableLayout>
     <TableLayout
        android:id='@+id/table2'
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:stretchColumns="*"
-       android:background="@color/c1">
+       style="@style/Table2">
    </TableLayout>
  </LinearLayout>

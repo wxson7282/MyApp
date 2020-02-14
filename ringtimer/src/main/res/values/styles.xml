@@ -1,16 +1,39 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="AppTheme">
+    <style name="AppTheme" parent="AppTheme" tools:ignore="ResourceCycle">
         <!-- Customize your theme here. -->
 
+    </style>
+    <style name="Root">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#c6c6cf</item>
+    </style>
+    <style name="Table1">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:horizontalSpacing">3sp</item>
+        <item name="android:verticalSpacing">3sp</item>
+        <item name="android:stretchColumns">*</item>
+        <item name="android:background">#858bf5</item>
+    </style>
+    <style name="Table2">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:horizontalSpacing">3sp</item>
+        <item name="android:verticalSpacing">3sp</item>
+        <item name="android:stretchColumns">*</item>
+        <item name="android:background">#858bf5</item>
     </style>
     <style name="LabelText" parent="android:TextAppearance.Large">
         <item name="android:textStyle">bold</item>
     </style>
     <style name="FormButton" parent="android:Widget.Button">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
         <item name="android:foreground">@color/c1</item>
     </style>
+    <!--<style name="Table"></style>-->
 </resources>
