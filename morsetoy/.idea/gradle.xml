@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT" />
+        </compositeConfiguration>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/.." />
+            <option value="$PROJECT_DIR$/../app" />
+            <option value="$PROJECT_DIR$/../morseringtone" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/../myapplication2" />
+            <option value="$PROJECT_DIR$/../myclock" />
+            <option value="$PROJECT_DIR$/../mylistview" />
+            <option value="$PROJECT_DIR$/../mypos" />
+            <option value="$PROJECT_DIR$/../ringtimer" />
+            <option value="$PROJECT_DIR$/../whereami" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

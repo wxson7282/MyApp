@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../MyApp.iml" filepath="$PROJECT_DIR$/../MyApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../app/app.iml" filepath="$PROJECT_DIR$/../app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../morseringtone/morseringtone.iml" filepath="$PROJECT_DIR$/../morseringtone/morseringtone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/morsetoy.iml" filepath="$PROJECT_DIR$/morsetoy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../myapplication2/myapplication2.iml" filepath="$PROJECT_DIR$/../myapplication2/myapplication2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../myclock/myclock.iml" filepath="$PROJECT_DIR$/../myclock/myclock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mylistview/mylistview.iml" filepath="$PROJECT_DIR$/../mylistview/mylistview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mypos/mypos.iml" filepath="$PROJECT_DIR$/../mypos/mypos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ringtimer/ringtimer.iml" filepath="$PROJECT_DIR$/../ringtimer/ringtimer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../whereami/whereami.iml" filepath="$PROJECT_DIR$/../whereami/whereami.iml" />
+    </modules>
+  </component>
+</project>
