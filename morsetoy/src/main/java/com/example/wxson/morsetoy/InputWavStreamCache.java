@@ -13,8 +13,6 @@ class InputWavStreamCache implements IInputWavStreamCache {
     private static final int headLen  = 44;     //wav文件头部的长度
     private ByteArrayOutputStream dataStreamBuff;
 
-
-
     /**
      * 从InputStream _stream中逐个字节读取，数据部写入buf并计算PCMSize
      * @param _stream 输入文件字节流 stream的打开关闭由调用方实现

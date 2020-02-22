@@ -1,12 +1,11 @@
 package com.example.wxson.morsetoy;
 
-import android.content.Context;
 import android.content.res.Resources;
 import java.io.InputStream;
 
 /**
  * Created by wxson on 2017/8/31.
- *
+ * 2020/2/22  refactoring
  */
 
 class MakeMorseAudioFile implements IMakeMorseAudioFile<Boolean> {
@@ -23,16 +22,14 @@ class MakeMorseAudioFile implements IMakeMorseAudioFile<Boolean> {
     /**
      * 构造函数 指定外部资源：构成莫尔斯信号的音频单元文件
      */
-    MakeMorseAudioFile(){
+    MakeMorseAudioFile(Resources _resources){
         //指定外部资源：构成莫尔斯信号的音频单元文件
-        Context context = MyApplication.getContextObject();
-        Resources res = context.getResources();
-        streamFastBlank = res.openRawResource(R.raw.morse_blank_050ms_600hz);
-        streamFastDa = res.openRawResource(R.raw.morse_da_150ms_600hz);
-        streamFastDi = res.openRawResource(R.raw.morse_di_050ms_600hz);
-        streamSlowBlank = res.openRawResource(R.raw.morse_blank_070ms_600hz);
-        streamSlowDa = res.openRawResource(R.raw.morse_da_210ms_600hz);
-        streamSlowDi = res.openRawResource(R.raw.morse_di_070ms_600hz);
+        streamFastBlank = _resources.openRawResource(R.raw.morse_blank_050ms_600hz);
+        streamFastDa = _resources.openRawResource(R.raw.morse_da_150ms_600hz);
+        streamFastDi = _resources.openRawResource(R.raw.morse_di_050ms_600hz);
+        streamSlowBlank = _resources.openRawResource(R.raw.morse_blank_070ms_600hz);
+        streamSlowDa = _resources.openRawResource(R.raw.morse_da_210ms_600hz);
+        streamSlowDi = _resources.openRawResource(R.raw.morse_di_070ms_600hz);
         //实例化音频文件类
         makeAudioFile = new MakeAudioFile();
     }

@@ -23,6 +23,9 @@ import java.util.regex.*;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
+/**
+ * 2020/2/18  refactoring
+ */
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
 
     protected static final String TAG = "MainActivity";
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         //获取资源
         final Resources res = MainActivity.this.getResources();
         //实例化编码工厂类
-        ArrayMapForCodingFactory arrayMapForCodingFactory = new ArrayMapForCodingFactory();
+        ArrayMapForCodingFactory arrayMapForCodingFactory = new ArrayMapForCodingFactory(res);
         //取得标准编码类
         arrayMapForCodingNormal = arrayMapForCodingFactory.createArrayMapCodingNormal();
         //取得长码电报编码类
@@ -50,19 +53,19 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         arrayMapForCodingShort = arrayMapForCodingFactory.createArrayMapCodingShort();
 
         //获得播放类的实例
-        morsePlay = MorsePlayFactory.createMorsePlay();
+        morsePlay = MorsePlayFactory.createMorsePlay(this);
         //获得制作音频文件类的实例
-        makeMorseAudioFile = new MakeMorseAudioFile();
+        makeMorseAudioFile = new MakeMorseAudioFile(res);
 
         //实例化各控件
-        final Button btnCode = (Button)findViewById(R.id.btnCode);                                  //编码按钮
-        final Button btnPlay = (Button)findViewById(R.id.btnPlay);                                  //播放按钮
-        final EditText editText = (EditText)findViewById(R.id.editText);                            //电文文本
-        final TextView textViewMorse = (TextView)findViewById(R.id.textViewMorse);                  //莫尔斯码文本
-        final ToggleButton toggleBtnFormat = (ToggleButton)findViewById(R.id.toggleBtnFormat);      //格式按钮
-        final ToggleButton toggleBtnLong = (ToggleButton)findViewById(R.id.toggleBtnLong);          //长短码按钮
-        final ToggleButton toggleBtnSpeed = (ToggleButton)findViewById(R.id.toggleBtnSpeed);        //播放速度按钮
-        btnMakeFile = (Button)findViewById(R.id.btnMakeFile);
+        final Button btnCode = findViewById(R.id.btnCode);                                  //编码按钮
+        final Button btnPlay = findViewById(R.id.btnPlay);                                  //播放按钮
+        final EditText editText = findViewById(R.id.editText);                            //电文文本
+        final TextView textViewMorse = findViewById(R.id.textViewMorse);                  //莫尔斯码文本
+        final ToggleButton toggleBtnFormat = findViewById(R.id.toggleBtnFormat);      //格式按钮
+        final ToggleButton toggleBtnLong = findViewById(R.id.toggleBtnLong);          //长短码按钮
+        final ToggleButton toggleBtnSpeed = findViewById(R.id.toggleBtnSpeed);        //播放速度按钮
+        btnMakeFile = findViewById(R.id.btnMakeFile);
 
         //把小写字母转换为大写字母
         editText.setTransformationMethod(new AllCapTransformationMethod());
@@ -76,13 +79,12 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             public void onClick(View v){
                 boolean isLongCode = toggleBtnLong.isChecked();   //指定长短码
                 CoderContext coderContext;            //使用策略模式，封装角色 简化顶层逻辑
-
                 //根据电文格式和长短码，实例化编码类
                 if (toggleBtnFormat.isChecked()){
-                    coderContext = new CoderContext(new TelegramCoder(isLongCode));
+                    coderContext = new CoderContext(new MorseCoder(isLongCode ? arrayMapForCodingLong : arrayMapForCodingShort));
                 }
                 else {
-                    coderContext = new CoderContext(new NormalCoder());
+                    coderContext = new CoderContext(new MorseCoder(arrayMapForCodingNormal));
                 }
                 textViewMorse.setText(coderContext.code(editText.getText().toString()));
             }
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
         //电文文本的监听器
         editText.addTextChangedListener(new TextWatcher() {
-            final StringBuffer sb = new StringBuffer("");    //用于追加空格
+            final StringBuffer sb = new StringBuffer();    //用于追加空格
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //空方法
@@ -178,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         btnMakeFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast;
                 //用输入电文制成文件名 空格置换为下划线
                 String fileName = editText.getText().toString().replace(' ', '_');
                 if (!fileName.equals("")) {
@@ -187,8 +188,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                     File folder = new File(folderName);
                     if (!folder.exists()) {
                         if (!folder.mkdir()){
-                            toast = Toast.makeText(MainActivity.this, "文件夹创建失败", Toast.LENGTH_SHORT);
-                            toast.show();
+                            Toast.makeText(MainActivity.this, "文件夹创建失败", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
@@ -202,19 +202,18 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
                     //制成音频文件
                     if (makeMorseAudioFile.makeMorseAudioFile(fileName, textViewMorse.getText().toString())){
-                        toast = Toast.makeText(MainActivity.this, "音频文件成功制成，保存在" + fileName, Toast.LENGTH_SHORT);
+                        Toast.makeText(MainActivity.this, "音频文件成功制成，保存在" + fileName, Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        toast = Toast.makeText(MainActivity.this, "音频文件制成失败", Toast.LENGTH_SHORT);
+                        Toast.makeText(MainActivity.this, "音频文件制成失败", Toast.LENGTH_SHORT).show();
                     }
-                    toast.show();
                 }
             }
         });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Log.i(TAG, "onRequestPermissionsResult");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Forward results to EasyPermissions
@@ -241,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     //下面两个方法是实现EasyPermissions的EasyPermissions.PermissionCallbacks接口
     //分别返回授权成功和失败的权限
     @Override
-    public void onPermissionsGranted(int requestCode, List<String> perms) {
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
         Log.i(TAG, "onPermissionsGranted");
         Log.i(TAG, "获取权限成功" + perms);
         Toast toast = Toast.makeText(MainActivity.this, "获取权限成功", Toast.LENGTH_SHORT);
@@ -250,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     }
 
     @Override
-    public void onPermissionsDenied(int requestCode, List<String> perms) {
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         Log.i(TAG, "onPermissionsDenied");
         Log.i(TAG, "获取权限失败，保存按钮不可用" + perms);
         Toast toast = Toast.makeText(MainActivity.this, "获取权限失败，保存按钮不可用", Toast.LENGTH_SHORT);

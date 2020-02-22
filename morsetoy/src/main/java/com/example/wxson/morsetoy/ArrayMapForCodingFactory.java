@@ -1,10 +1,11 @@
 package com.example.wxson.morsetoy;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 /**
  * Created by wxson on 2017/8/5.
- *
+ * 2020/2/18  refactoring
  */
 
 class ArrayMapForCodingFactory {
@@ -15,14 +16,13 @@ class ArrayMapForCodingFactory {
     private static String[] morseShortCodeArray;    //数字数组对应的莫尔斯短码数组
 
     //构造函数
-    ArrayMapForCodingFactory(){
+    ArrayMapForCodingFactory(Resources _resources){
         //获取字符数组和莫尔斯码数组
-        Context context = MyApplication.getContextObject();
-        charArray = context.getResources().getStringArray(R.array.characters);
-        morseCodeArray = context.getResources().getStringArray(R.array.morse_code);
-        figuresArray = context.getResources().getStringArray(R.array.figures);
-        morseLongCodeArray = context.getResources().getStringArray(R.array.morse_long_code);
-        morseShortCodeArray = context.getResources().getStringArray(R.array.morse_short_code);
+        charArray = _resources.getStringArray(R.array.characters);
+        morseCodeArray = _resources.getStringArray(R.array.morse_code);
+        figuresArray = _resources.getStringArray(R.array.figures);
+        morseLongCodeArray = _resources.getStringArray(R.array.morse_long_code);
+        morseShortCodeArray = _resources.getStringArray(R.array.morse_short_code);
     }
 
     //生产标准编码类的工厂方法
