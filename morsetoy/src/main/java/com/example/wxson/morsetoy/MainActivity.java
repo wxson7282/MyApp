@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     static IArrayMapForCoding arrayMapForCodingNormal;  //标准编码类
     static IArrayMapForCoding arrayMapForCodingLong;  //长码电报编码类
     static IArrayMapForCoding arrayMapForCodingShort;  //短码电报编码类
-    private IMorsePlay<Boolean> morsePlay;                            //播放类
-    private IMakeMorseAudioFile<Boolean> makeMorseAudioFile;        //制作音频文件类
+    private IMorsePlayer<Boolean> morsePlay;                            //播放类
+    private IMorseAudioFileMaker<Boolean> makeMorseAudioFile;        //制作音频文件类
     private Button btnMakeFile;                          //制成音频文件按钮
 
     @Override
@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         arrayMapForCodingShort = arrayMapForCodingFactory.createArrayMapCodingShort();
 
         //获得播放类的实例
-        morsePlay = MorsePlayFactory.createMorsePlay(this);
+        morsePlay = MorsePlayerFactory.createMorsePlay(this);
         //获得制作音频文件类的实例
-        makeMorseAudioFile = new MakeMorseAudioFile(res);
+        makeMorseAudioFile = new MorseAudioFileMaker(res);
 
         //实例化各控件
         final Button btnCode = findViewById(R.id.btnCode);                                  //编码按钮
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         btnMakeFile = findViewById(R.id.btnMakeFile);
 
         //把小写字母转换为大写字母
-        editText.setTransformationMethod(new AllCapTransformationMethod());
+        editText.setTransformationMethod(new UppercaseTransformationMethod());
 
         //申请权限
         requestStoragePermission();

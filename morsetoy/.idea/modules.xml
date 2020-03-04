@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../MyApp.iml" filepath="$PROJECT_DIR$/../MyApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../app/app.iml" filepath="$PROJECT_DIR$/../app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../morseringtone/morseringtone.iml" filepath="$PROJECT_DIR$/../morseringtone/morseringtone.iml" />
-      <module fileurl="file://$PROJECT_DIR$/morsetoy.iml" filepath="$PROJECT_DIR$/morsetoy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../myapplication2/myapplication2.iml" filepath="$PROJECT_DIR$/../myapplication2/myapplication2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../myclock/myclock.iml" filepath="$PROJECT_DIR$/../myclock/myclock.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../mylistview/mylistview.iml" filepath="$PROJECT_DIR$/../mylistview/mylistview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../mypos/mypos.iml" filepath="$PROJECT_DIR$/../mypos/mypos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../ringtimer/ringtimer.iml" filepath="$PROJECT_DIR$/../ringtimer/ringtimer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../whereami/whereami.iml" filepath="$PROJECT_DIR$/../whereami/whereami.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../My App.iml" filepath="$PROJECT_DIR$/../My App.iml" group="My App" />
+      <module fileurl="file://$PROJECT_DIR$/../app/app.iml" filepath="$PROJECT_DIR$/../app/app.iml" group="My App/app" />
+      <module fileurl="file://$PROJECT_DIR$/../morseringtone/morseringtone.iml" filepath="$PROJECT_DIR$/../morseringtone/morseringtone.iml" group="My App/morseringtone" />
+      <module fileurl="file://$PROJECT_DIR$/morsetoy.iml" filepath="$PROJECT_DIR$/morsetoy.iml" group="My App/morsetoy" />
+      <module fileurl="file://$PROJECT_DIR$/../myapplication2/myapplication2.iml" filepath="$PROJECT_DIR$/../myapplication2/myapplication2.iml" group="My App/myapplication2" />
+      <module fileurl="file://$PROJECT_DIR$/../myclock/myclock.iml" filepath="$PROJECT_DIR$/../myclock/myclock.iml" group="My App/myclock" />
+      <module fileurl="file://$PROJECT_DIR$/../mylistview/mylistview.iml" filepath="$PROJECT_DIR$/../mylistview/mylistview.iml" group="My App/mylistview" />
+      <module fileurl="file://$PROJECT_DIR$/../mypos/mypos.iml" filepath="$PROJECT_DIR$/../mypos/mypos.iml" group="My App/mypos" />
+      <module fileurl="file://$PROJECT_DIR$/../ringtimer/ringtimer.iml" filepath="$PROJECT_DIR$/../ringtimer/ringtimer.iml" group="My App/ringtimer" />
+      <module fileurl="file://$PROJECT_DIR$/../whereami/whereami.iml" filepath="$PROJECT_DIR$/../whereami/whereami.iml" group="My App/whereami" />
     </modules>
   </component>
 </project>

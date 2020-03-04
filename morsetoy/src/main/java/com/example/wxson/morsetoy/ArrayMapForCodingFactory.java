@@ -1,6 +1,5 @@
 package com.example.wxson.morsetoy;
 
-import android.content.Context;
 import android.content.res.Resources;
 
 /**

@@ -1,0 +1,222 @@
+@startuml
+
+title __MORSETOY's Class Diagram__\n
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.UppercaseTransformationMethod {
+        # getOriginal()
+        # getReplacement()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.ArrayMapForCoding {
+        - charArray : String[]
+        - codingArrayMap : ArrayMap<String, String>
+        - morseCodeArray : String[]
+        + GetMorseCode()
+        ~ ArrayMapForCoding()
+        - AllItemAdd()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.ArrayMapForCodingFactory {
+        {static} - charArray : String[]
+        {static} - figuresArray : String[]
+        {static} - morseCodeArray : String[]
+        {static} - morseLongCodeArray : String[]
+        {static} - morseShortCodeArray : String[]
+        ~ ArrayMapForCodingFactory()
+        ~ createArrayMapCodingLong()
+        ~ createArrayMapCodingNormal()
+        ~ createArrayMapCodingShort()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.CoderContext {
+        ~ CoderContext()
+        ~ code()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    interface com.example.wxson.morsetoy.IArrayMapForCoding {
+        {abstract} + GetMorseCode()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    interface com.example.wxson.morsetoy.ICoder {
+        {abstract} + code()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    interface com.example.wxson.morsetoy.IInputWavStreamCache {
+        {abstract} + getDataStreamBuff()
+        {abstract} + getPCMSize()
+        {abstract} + readStream()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    interface com.example.wxson.morsetoy.IAudioFileMaker {
+        {abstract} + mergeAudioFiles()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    interface com.example.wxson.morsetoy.IMorseAudioFileMaker {
+        {abstract} + makeMorseAudioFile()
+        {abstract} + setSpeed()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    interface com.example.wxson.morsetoy.IMorsePlayer {
+        {abstract} + playBlank()
+        {abstract} + playDa()
+        {abstract} + playDi()
+        {abstract} + setSpeed()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.InputWavStreamCache {
+        - PCMSize : int
+        - dataStreamBuff : ByteArrayOutputStream
+        {static} - headLen : int
+        + getDataStreamBuff()
+        + getPCMSize()
+        + readStream()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.MainActivity {
+        {static} # TAG : String
+        {static} ~ arrayMapForCodingLong : IArrayMapForCoding
+        {static} ~ arrayMapForCodingNormal : IArrayMapForCoding
+        {static} ~ arrayMapForCodingShort : IArrayMapForCoding
+        - btnMakeFile : Button
+        - makeMorseAudioFile : IMakeMorseAudioFile<Boolean>
+        - morsePlay : IMorsePlay<Boolean>
+        + onPermissionsDenied()
+        + onPermissionsGranted()
+        + onRequestPermissionsResult()
+        + requestStoragePermission()
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.AudioFileMaker {
+        + mergeAudioFiles()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.MorseAudioFileMaker {
+        {static} - FAST : boolean
+        - speedFlag : boolean
+        - streamFastBlank : InputStream
+        - streamFastDa : InputStream
+        - streamFastDi : InputStream
+        - streamSlowBlank : InputStream
+        - streamSlowDa : InputStream
+        - streamSlowDi : InputStream
+        + makeMorseAudioFile()
+        + setSpeed()
+        # finalize()
+        ~ MakeMorseAudioFile()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.MorseCoder {
+        + code()
+        ~ MorseCoder()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.MorsePlayer {
+        {static} - delayFastDa : long
+        {static} - delayFastDi : long
+        {static} - delaySlowDa : long
+        {static} - delaySlowDi : long
+        - isFast : boolean
+        - soundPool : SoundPool
+        - streamIdFastDa : int
+        - streamIdFastDi : int
+        - streamIdSlowDa : int
+        - streamIdSlowDi : int
+        + MorsePlay()
+        + finalize()
+        + playBlank()
+        + playDa()
+        + playDi()
+        + setSpeed()
+        - delay()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.MorsePlayerFactory {
+        {static} ~ createMorsePlay()
+    }
+  }
+  
+
+  namespace com.example.wxson.morsetoy {
+    class com.example.wxson.morsetoy.WavFileHeader {
+        ~ mChunkSize : int
+        ~ mSubChunk2Size : int
+        ~ getHeader()
+        - WriteChar()
+        - WriteInt()
+        - WriteShort()
+    }
+  }
+  
+
+  com.example.wxson.morsetoy.UppercaseTransformationMethod -up-|> android.text.method.ReplacementTransformationMethod
+  com.example.wxson.morsetoy.ArrayMapForCoding .up.|> com.example.wxson.morsetoy.IArrayMapForCoding
+  com.example.wxson.morsetoy.CoderContext o-- com.example.wxson.morsetoy.ICoder : coder
+  com.example.wxson.morsetoy.InputWavStreamCache .up.|> com.example.wxson.morsetoy.IInputWavStreamCache
+  com.example.wxson.morsetoy.MainActivity .up.|> pub.devrel.easypermissions.EasyPermissions.PermissionCallbacks
+  com.example.wxson.morsetoy.MainActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.example.wxson.morsetoy.AudioFileMaker .up.|> com.example.wxson.morsetoy.IAudioFileMaker
+  com.example.wxson.morsetoy.MorseAudioFileMaker .up.|> com.example.wxson.morsetoy.IMorseAudioFileMaker
+  com.example.wxson.morsetoy.MorseAudioFileMaker o-- com.example.wxson.morsetoy.IAudioFileMaker : makeAudioFile
+  com.example.wxson.morsetoy.MorseCoder .up.|> com.example.wxson.morsetoy.ICoder
+  com.example.wxson.morsetoy.MorseCoder o-- com.example.wxson.morsetoy.IArrayMapForCoding : arrayMapForCoding
+  com.example.wxson.morsetoy.MorsePlayer .up.|> com.example.wxson.morsetoy.IMorsePlayer
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
